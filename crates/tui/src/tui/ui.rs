@@ -7864,7 +7864,7 @@ fn open_thinking_pager(app: &mut App) -> bool {
     });
 
     let Some(idx) = target_idx else {
-        app.status_message = Some("No thinking blocks to expand".to_string());
+        app.status_message = Some("没有可展开的思考内容".to_string());
         return true;
     };
 

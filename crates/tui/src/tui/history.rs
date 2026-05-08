@@ -2067,7 +2067,7 @@ fn render_thinking(
             format!("{REASONING_OPENER} "),
             Style::default().fg(thinking_state_accent(state)),
         ),
-        Span::styled("thinking", thinking_title_style()),
+        Span::styled("思考", thinking_title_style()),
     ];
     header_spans.push(Span::styled(" ", Style::default()));
     header_spans.push(Span::styled(
@@ -2124,7 +2124,7 @@ fn render_thinking(
         lines.push(Line::from(vec![
             Span::styled(REASONING_RAIL.to_string(), rail_style),
             Span::styled(
-                "thinking collapsed; press Ctrl+O for full text",
+                "思考内容已折叠，按 Ctrl+O 查看完整内容",
                 Style::default().fg(palette::TEXT_MUTED).italic(),
             ),
         ]));
@@ -3558,7 +3558,7 @@ mod tests {
             .iter()
             .flat_map(|line| line.spans.iter().map(|span| span.content.as_ref()))
             .collect::<String>();
-        assert!(text.contains("thinking collapsed; press Ctrl+O for full text"));
+        assert!(text.contains("思考内容已折叠，按 Ctrl+O 查看完整内容"));
         assert!(text.contains("thinking"));
     }
 
@@ -4089,11 +4089,11 @@ mod tests {
             "live thinking must drop the tail when collapsed"
         );
         assert!(
-            live_text.contains("press Ctrl+O for full text"),
+            live_text.contains("按 Ctrl+O 查看完整内容"),
             "live thinking must offer the pager affordance"
         );
         assert!(
-            !transcript_text.contains("press Ctrl+O for full text"),
+            !transcript_text.contains("按 Ctrl+O 查看完整内容"),
             "transcript thinking must not include the live affordance"
         );
     }
@@ -4125,7 +4125,7 @@ mod tests {
             "short thinking must render identically on both surfaces"
         );
         assert!(
-            !live_text.contains("press Ctrl+O for full text"),
+            !live_text.contains("按 Ctrl+O 查看完整内容"),
             "short thinking must not show the collapse affordance"
         );
     }

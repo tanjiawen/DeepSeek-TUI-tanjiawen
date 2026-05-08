@@ -249,7 +249,7 @@ fn message_text(message: &Message) -> String {
                 push(&format!("[tool_result] {content}"));
             }
             ContentBlock::Thinking { thinking } => {
-                push(&format!("[thinking] {thinking}"));
+                push(&format!("思考内容"));
             }
             ContentBlock::ServerToolUse { name, input, .. } => {
                 push(&format!("[server_tool_use {name}] {input}"));

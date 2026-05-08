@@ -560,8 +560,14 @@ impl ToolRegistryBuilder {
         use super::fetch_url::FetchUrlTool;
         use super::finance::FinanceTool;
         use super::web_run::WebRunTool;
-        use super::web_search::WebSearchTool;
-        self.with_tool(Arc::new(WebSearchTool))
+        // Use Tavily if API key is available, otherwise fall back to DuckDuckGo
+        if let Some(api_key) = std::env::var("TAVILY_API_KEY").ok() {
+            use super::tavily_search::TavilySearchTool;
+            self.with_tool(Arc::new(TavilySearchTool::new(api_key)))
+        } else {
+            use super::web_search::WebSearchTool;
+            self.with_tool(Arc::new(WebSearchTool))
+        }
             .with_tool(Arc::new(FetchUrlTool))
             .with_tool(Arc::new(FinanceTool::new()))
             .with_tool(Arc::new(WebRunTool))

@@ -287,6 +287,7 @@ deepseek update                                # 检查并应用二进制更新
 | `OLLAMA_MODEL` | 自托管 Ollama 模型标签 |
 | `NO_ANIMATIONS=1` | 启动时强制无障碍模式 |
 | `SSL_CERT_FILE` | 企业代理的自定义 CA 包 |
+| `TAVILY_API_KEY` | Tavily 搜索 API key（可选，设置后优先使用 Tavily 搜索） |
 
 UI 语言与模型输出语言相互独立——在 `config.toml` 中设置 `locale`、使用 `/config locale zh-Hans`、或依赖 `LC_ALL`/`LANG`。详见 [docs/LOCALIZATION.md](docs/LOCALIZATION.md) 和 [docs/CONFIGURATION.md](docs/CONFIGURATION.md)。
 
@@ -312,6 +313,29 @@ locale = "zh-Hans"
 ```bash
 LANG=zh_CN.UTF-8 deepseek run
 ```
+
+---
+
+## 搜索功能
+
+### Tavily 搜索（推荐）
+
+Tavily 是一个专为 AI 应用优化的搜索 API，提供更精准的搜索结果和 AI 生成的答案。设置 `TAVILY_API_KEY` 环境变量后自动启用：
+
+```bash
+export TAVILY_API_KEY="your-tavily-api-key"
+```
+
+**优势**：
+- AI 优化的搜索结果排序
+- 内置答案生成（`include_answer`）
+- 更少的广告和噪音
+
+**获取 API Key**：访问 [tavily.com](https://tavily.com) 注册免费账号。
+
+### 回退机制
+
+当 Tavily 搜索失败或未配置 API Key 时，系统自动回退到 DuckDuckGo 搜索（无需额外配置）。
 
 ---
 
