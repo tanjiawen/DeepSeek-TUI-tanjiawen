@@ -555,13 +555,14 @@ impl ToolRegistryBuilder {
     }
 
     /// Include web search tools.
+    /// If `tavily_api_key` is provided, uses TavilySearchTool; otherwise falls back to DuckDuckGo.
     #[must_use]
-    pub fn with_web_tools(self) -> Self {
+    pub fn with_web_tools(self, tavily_api_key: Option<String>) -> Self {
         use super::fetch_url::FetchUrlTool;
         use super::finance::FinanceTool;
         use super::web_run::WebRunTool;
         // Use Tavily if API key is available, otherwise fall back to DuckDuckGo
-        if let Some(api_key) = std::env::var("TAVILY_API_KEY").ok() {
+        if let Some(api_key) = tavily_api_key {
             use super::tavily_search::TavilySearchTool;
             self.with_tool(Arc::new(TavilySearchTool::new(api_key)))
         } else {

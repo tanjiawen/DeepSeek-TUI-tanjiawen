@@ -245,11 +245,11 @@ impl ToolSpec for WebSearchTool {
             }
         }
         let message = if results.is_empty() {
-            "No results found".to_string()
+            "未找到相关结果".to_string()
         } else if let Some(suffix) = message_suffix {
-            format!("Found {} result(s). {suffix}", results.len())
+            format!("根据「{}」搜索结果，整理如下：{}", query, suffix)
         } else {
-            format!("Found {} result(s)", results.len())
+            format!("根据「{}」搜索结果，整理如下：", query)
         };
 
         let response = WebSearchResponse {

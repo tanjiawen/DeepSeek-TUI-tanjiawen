@@ -755,6 +755,9 @@ pub struct Config {
     pub provider: Option<String>,
     pub api_key: Option<String>,
     pub base_url: Option<String>,
+    /// Optional Tavily API key for AI-optimized web search.
+    /// When set, uses TavilySearchTool instead of DuckDuckGo.
+    pub tavily_api_key: Option<String>,
     /// Optional extra HTTP headers sent to model API requests.
     pub http_headers: Option<HashMap<String, String>>,
     pub default_text_model: Option<String>,
@@ -1462,6 +1465,15 @@ impl Config {
             .map(expand_path)
             .or_else(default_memory_path)
             .unwrap_or_else(|| PathBuf::from("./memory.md"))
+    }
+
+    /// Get the configured Tavily API key.
+    /// Falls back to environment variable `TAVILY_API_KEY`.
+    #[must_use]
+    pub fn tavily_api_key(&self) -> Option<String> {
+        self.tavily_api_key
+            .clone()
+            .or_else(|| std::env::var("TAVILY_API_KEY").ok())
     }
 
     /// Resolve the configured `instructions = [...]` array (#454)

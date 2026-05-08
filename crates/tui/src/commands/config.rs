@@ -343,6 +343,24 @@ pub fn set_config_value(app: &mut App, key: &str, value: &str, persist: bool) ->
             };
             return CommandResult::message(message);
         }
+        "tavily_api_key" => {
+            if value.trim().is_empty() {
+                return CommandResult::error("tavily_api_key cannot be empty");
+            }
+            if persist {
+                match persist_root_string_key("tavily_api_key", value) {
+                    Ok(path) => CommandResult::message(format!(
+                        "tavily_api_key saved to {} (restart required to apply)",
+                        path.display()
+                    )),
+                    Err(err) => CommandResult::error(format!("Failed to save: {err}")),
+                }
+            } else {
+                CommandResult::message(
+                    "tavily_api_key set (session only; restart required to apply)".to_string(),
+                )
+            }
+        }
         _ => {}
     }
 

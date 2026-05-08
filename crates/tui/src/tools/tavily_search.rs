@@ -208,9 +208,9 @@ impl TavilySearchTool {
 
         let count = results.len();
         let message = if count == 0 {
-            "No results found".to_string()
+            "未找到相关结果".to_string()
         } else {
-            format!("Found {} result(s)", count)
+            format!("根据「{}」搜索结果，整理如下：", query)
         };
 
         // Extract AI-generated answer from Tavily response

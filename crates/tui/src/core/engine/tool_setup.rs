@@ -69,7 +69,7 @@ impl Engine {
             builder = builder.with_patch_tools();
         }
         if self.config.features.enabled(Feature::WebSearch) {
-            builder = builder.with_web_tools();
+            builder = builder.with_web_tools(self.config.tavily_api_key());
         }
         // Plan mode keeps shell available when the session allows it; command
         // safety and approval checks still gate risky commands.
